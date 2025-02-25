@@ -31,23 +31,22 @@ def circular_array_path(n, m):
     # Начальная позиция
     start_index = 0
     path = []
-    j=0
+    
     # Пока не вернемся к первому элементу
     while True:
         # Получаем текущий интервал
-        interval = [circular_array[(start_index + i + j) % n] for i in range(m)]
+        interval = [circular_array[(start_index + i) % n] for i in range(m)]
+        
+        # Если вернулись к началу, выходим из цикла
+        if interval[0] in path:
+            break
+        
         # Добавляем первый элемент интервала в путь
         path.append(interval[0])
         
-        j+=m
-        
         # Обновляем начальный индекс
-        start_index = (start_index + m) % n
+        start_index = interval[-2]
 
-        # Если вернулись к началу, выходим из цикла
-        if start_index == 0:
-            break
-    
     return ''.join(map(str, path))
 
 if __name__ == "__main__":
